@@ -1,35 +1,49 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import type { InputAreaProps } from '../types';
 
 const InputArea: React.FC<InputAreaProps> = ({ onSendMessage }) => {
   const [input, setInput] = useState('');
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSend = () => {
     if (input.trim()) {
       onSendMessage(input);
       setInput('');
+      if (textareaRef.current) {
+        textareaRef.current.style.height = 'auto'; // Reset height after sending
+      }
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+  const handleInput = () => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      textarea.style.height = 'auto'; // Reset height to recalculate
+      textarea.style.height = `${textarea.scrollHeight}px`; // Set to content height
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault(); // Prevent new line on Enter
       handleSend();
     }
   };
 
   return (
-    <div className="flex items-center p-4 bg-gray-800">
-      <input
-        type="text"
+    <div className="flex items-center p-4 bg-neutral-700 rounded-2xl shadow-lg">
+      <textarea
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        onKeyPress={handleKeyPress}
-        className="flex-1 px-4 py-2 rounded-l-lg bg-gray-700 text-white focus:outline-none"
+        onInput={handleInput}
+        onKeyDown={handleKeyPress}
+        className="flex-1 px-4 py-2 rounded-lg bg-neutral-700 text-white focus:outline-none resize-none max-h-24 overflow-y-auto mr-2"
         placeholder="Type your message..."
+        ref={textareaRef}
       />
       <button
         onClick={handleSend}
-        className="px-3 py-2 bg-gray-600 text-white rounded-r-lg hover:bg-gray-500 transition-colors"
+        className="px-3 py-2 bg-white text-gray-900 rounded-full hover:bg-gray-200 transition-colors"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -49,6 +63,5 @@ const InputArea: React.FC<InputAreaProps> = ({ onSendMessage }) => {
     </div>
   );
 };
-
 
 export default InputArea;

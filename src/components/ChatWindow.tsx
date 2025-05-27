@@ -21,7 +21,7 @@ const ChatWindow: React.FC = () => {
       setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
       console.error('Error sending message:', error);
-      const errorMessage: MessageType = { text: 'Sorry, something went wrong.apsefijapegjnapsdgnopasjgr pajetpa asetp apgt japs tasste ja;ofj pasjf pasjgt p;asjg apsjtpasjt pasj apsejtpasjetpasejtpasjdfopasjt;ajot ;ajtpaket;ojspft astjapsetjkpasejt atejasjtgasjt las itj', isUser: false };
+      const errorMessage: MessageType = { text: 'Sorry, something went wrong. adsflaihsdf dfhalsd lihadfla dfilfliflaidf j iasdfjla dfasdfj jlj ioafd adfi ldifh adsf ladjf laf alsfliasif llasf ', isUser: false };
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
@@ -33,7 +33,7 @@ const ChatWindow: React.FC = () => {
   }, [messages]);
 
   return (
-    <div className="flex flex-col h-[80vh] bg-gray-900 rounded-lg shadow-lg">
+    <div className="flex flex-col h-[80vh] bg-neutral-900 rounded-lg shadow-lg">
       <div className="flex-1 overflow-y-auto p-4">
         {messages.map((msg, index) => (
           <Message key={index} text={msg.text} isUser={msg.isUser} />
