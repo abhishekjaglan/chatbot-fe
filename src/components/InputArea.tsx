@@ -29,12 +29,26 @@ const InputArea: React.FC<InputAreaProps> = ({ onSendMessage }) => {
       />
       <button
         onClick={handleSend}
-        className="px-4 py-2 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600"
+        className="px-3 py-2 bg-gray-600 text-white rounded-r-lg hover:bg-gray-500 transition-colors"
       >
-        Send
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          className="w-6 h-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+          />
+        </svg>
       </button>
     </div>
   );
 };
+
 
 export default InputArea;
